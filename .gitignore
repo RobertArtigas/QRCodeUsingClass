@@ -18,6 +18,11 @@ obj/**
 *.ap~
 PWEE*.txt
 
+
+!Examples/*
+!Bin/
+
+RemovedFiles/
 ############
 ## Windows
 ############
