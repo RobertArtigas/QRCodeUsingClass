@@ -51,8 +51,8 @@ imageType             LONG(ImageFormat:Jpeg)
 
 ctQRWrapper         CLASS,TYPE,MODULE('ctQRWrapper.clw'),LINK('ctQRWrapper.clw')
 CreateQRContact       PROCEDURE(*gtQRContact contact, *gtFileInformation FileInfo),VIRTUAL
-CreateQRText          PROCEDURE(string txt, *gtFileInformation FileInfo),VIRTUAL
-CreateQRSkypeCall     PROCEDURE(string skypeContact, *gtFileInformation FileInfo),VIRTUAL
-CreateQRUrl           PROCEDURE(string url, *gtFileInformation FileInfo),VIRTUAL
-CreateQRSms           PROCEDURE(string number, string message, *gtFileInformation FileInfo),VIRTUAL
+CreateQRText          PROCEDURE(STRING txt, *gtFileInformation FileInfo),VIRTUAL
+CreateQRSkypeCall     PROCEDURE(STRING skypeContact, *gtFileInformation FileInfo),VIRTUAL
+CreateQRUrl           PROCEDURE(STRING url, *gtFileInformation FileInfo),VIRTUAL
+CreateQRSms           PROCEDURE(STRING number, STRING message, *gtFileInformation FileInfo),VIRTUAL
                     END
