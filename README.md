@@ -8,6 +8,12 @@ We are currently redeveloping the wrapper to support more of the features availa
 
 We hope that other clarion developers will contribute to the project and we will be accepting pull requests.
 
+## Requirements
+
+This project is wrapping the QRCoder .Net Wrapper in a .Net dll.
+# As such it requires .Net 4.6 to be installedon any computer using the wrapper.
+
+
 ## Current working code within class wrapper.
 
 CreateQRContact - For creating a QR VCard based on contact details image.
@@ -16,7 +22,7 @@ CreateQRSkypeCall - For creating a QR Skype Call image.
 
 CreateQRSms - For creating a QR SMS image
 
-CreateQRText - For emeding plain text into a QR image
+CreateQRText - For embeding plain text into a QR image
 
 CreateQRUrl - For creating a QR Url image
 
