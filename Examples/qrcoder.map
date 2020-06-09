@@ -1,7 +1,0 @@
-     module('QRCoder.lib')
-        GenerateQrCode    (				)                ,NAME('GenerateQrCode'),PASCAL,RAW,DLL(TRUE)
-        GenerateQrCodeAsci(				)                ,NAME('GenerateQrCodeAsci'),PASCAL,RAW,DLL(TRUE)
-        calendar          (				)                ,NAME('calendar'),PASCAL,RAW,DLL(TRUE)
-        colorp            (				)                ,NAME('colorp'),PASCAL,RAW,DLL(TRUE)
-        viewimagep        (				)                ,NAME('viewimagep'),PASCAL,RAW,DLL(TRUE)
-     end !module('QRCoder.lib')
