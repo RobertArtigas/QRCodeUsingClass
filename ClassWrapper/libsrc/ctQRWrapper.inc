@@ -10,17 +10,17 @@ Default               EQUATE
 Reversed              EQUATE
                     END
 
-ImageFormat  ITEMIZE(0),PRE(ImageFormat)
-Bmp EQUATE
-Emf EQUATE
-Wmf EQUATE
-Gif EQUATE
-Jpeg EQUATE
-Png EQUATE
-Tiff EQUATE
-Exif EQUATE
-Icon EQUATE
-  END
+ImageFormat         ITEMIZE(0),PRE(ImageFormat)
+Bmp                   EQUATE
+Emf                   EQUATE
+Wmf                   EQUATE
+Gif                   EQUATE
+Jpeg                  EQUATE
+Png                   EQUATE
+Tiff                  EQUATE
+Exif                  EQUATE
+Icon                  EQUATE
+                    END
 
 gtQRContact         GROUP,TYPE
 OutputType            LONG(OutType:VCard3)
@@ -43,17 +43,16 @@ StateRegion           BSTRING
 AddressOrder          LONG(ORDTYPE:Default)
                     end
 
-gtFileInformation    GROUP,TYPE
-FileName   BSTRING
-imageType  LONG(ImageFormat:Jpeg)
-    END
+gtFileInformation   GROUP,TYPE
+FileName              BSTRING
+imageType             LONG(ImageFormat:Jpeg)
+                    END
 
 
-ctQRWrapper         CLASS,TYPE,MODULE('ctQRWrapper.clw'),Link('ctQRWrapper.clw')
-
-CreateQRContact       PROCEDURE(*gtQRContact contact, *gtFileInformation FileInfo),Virtual
-CreateQRText    PROCEDURE(string txt, *gtFileInformation FileInfo),Virtual
-CreateQRSkypeCall      PROCEDURE(string skypeContact, *gtFileInformation FileInfo),Virtual
-CreateQRUrl      PROCEDURE(string url, *gtFileInformation FileInfo),Virtual
-CreateQRSms      PROCEDURE(string number, string message, *gtFileInformation FileInfo)
+ctQRWrapper         CLASS,TYPE,MODULE('ctQRWrapper.clw'),LINK('ctQRWrapper.clw')
+CreateQRContact       PROCEDURE(*gtQRContact contact, *gtFileInformation FileInfo),VIRTUAL
+CreateQRText          PROCEDURE(string txt, *gtFileInformation FileInfo),VIRTUAL
+CreateQRSkypeCall     PROCEDURE(string skypeContact, *gtFileInformation FileInfo),VIRTUAL
+CreateQRUrl           PROCEDURE(string url, *gtFileInformation FileInfo),VIRTUAL
+CreateQRSms           PROCEDURE(string number, string message, *gtFileInformation FileInfo),VIRTUAL
                     END
