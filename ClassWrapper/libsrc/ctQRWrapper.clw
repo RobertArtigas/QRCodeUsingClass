@@ -15,9 +15,7 @@ QRSms                   PROCEDURE(BSTRING number, BSTRING message, long FileInfo
 ctQRWrapper.CreateQRContact PROCEDURE(*gtQRContact contact, *gtFileInformation FileInfo)
 
   CODE
-!  if contact &= null or FileInfo &= null
-!      return
-!  end
+
   QRVCard(Address(contact), ADDRESS(FileInfo))
 
 ctQRWrapper.CreateQRText  PROCEDURE(string txt, *gtFileInformation FileInfo)
