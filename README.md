@@ -4,7 +4,7 @@ This project originaly stems from work done by Roberto Renz and others as a wrap
 
 We are currently redeveloping the wrapper to support more of the features available in QRCoder.
 
-##Help Us
+## Help Us
 
 We hope that other clarion developers will contribute to the project and we will be accepting pull requests.
 
@@ -16,7 +16,7 @@ CreateQRSms - For creating a QR SMS image
 CreateQRText - For emeding plain text into a QR image
 CreateQRUrl - For creating a QR Url image
 
-##Todo
+## Todo
 
 Other methods will be added to wrap bookmarks, calendar, email, geolocation, mms, one time passwords, phone numbers, whatsapp and wifi.
 
