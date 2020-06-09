@@ -22,17 +22,17 @@ ctQRWrapper.CreateQRContact PROCEDURE(*gtQRContact contact, *gtFileInformation F
 
 ctQRWrapper.CreateQRText  PROCEDURE(string txt, *gtFileInformation FileInfo)
   CODE
-    QRText(txt, Address(FileInfo))
+    QRText(CLIP(txt), Address(FileInfo))
 
 ctQRWrapper.CreateQRSkypeCall      PROCEDURE(string skypeContact, *gtFileInformation FileInfo)
   CODE
-  QRSkypeCall(skypeContact, Address(FileInfo))  
+  QRSkypeCall(clip(skypeContact), Address(FileInfo))  
 
 ctQRWrapper.CreateQRUrl      PROCEDURE(string url, *gtFileInformation FileInfo)
   CODE
-  QRUrl(url, Address(FileInfo))   
+  QRUrl(CLIP(url), Address(FileInfo))   
 
 ctQRWrapper.CreateQRSms      PROCEDURE(string number, string message, *gtFileInformation FileInfo)
   CODE
-  QRSms(number, message, Address(FileInfo))    
+  QRSms(CLIP(number), CLIP(message), Address(FileInfo))    
 
