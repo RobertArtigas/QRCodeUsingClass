@@ -13,8 +13,11 @@ We hope that other clarion developers will contribute to the project and we will
 CreateQRContact - For creating a QR VCard based on contact details image.
 
 CreateQRSkypeCall - For creating a QR Skype Call image.
+
 CreateQRSms - For creating a QR SMS image
+
 CreateQRText - For emeding plain text into a QR image
+
 CreateQRUrl - For creating a QR Url image
 
 ## Todo
