@@ -14,6 +14,7 @@ namespace QRCoderClarionWrapper
         [MarshalAs(UnmanagedType.BStr)]
         public string FileName;
         public int FileType;
+        public int SaveFile;
     }
     public class QRFileInfo : GroupBaseClass<QRFileInformation>
     {
@@ -55,6 +56,13 @@ namespace QRCoderClarionWrapper
                         return ImageFormat.Jpeg;
                 }
                 
+            }
+        }
+        public bool SaveFile
+        {
+            get
+            {
+                return group.SaveFile == 1;
             }
         }
     }
