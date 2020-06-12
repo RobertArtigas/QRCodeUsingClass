@@ -11,25 +11,27 @@ namespace QRCoderClarionWrapper
     public static partial class QRCoderWrapper
     {
 
-        private static string CreateQRAndSave(IntPtr ptrFileInformation, dynamic payload)
+        private static string CreateQR(IntPtr ptrFileInformation, dynamic payload)
         {
             var FileInformation = new QRFileInfo(ptrFileInformation);
             
             QRCode qrCode = GenerateQR(payload);
-            if (FileInformation.SaveImage && FileInformation.FileName != "")
+            if (FileInformation.SaveImage)
             {
+                if (FileInformation.FileName == "")
+                    return "";
+
                 if (File.Exists(FileInformation.FileName))
                     File.Delete(FileInformation.FileName);
                 qrCode.GetGraphic(20).Save(FileInformation.FileName, FileInformation.FileType);
+                return "";
             }
-            return "";
+            return Convert.ToBase64String(ImageToByte2(qrCode.GetGraphic(20), new QRFileInfo(ptrFileInformation)));
+
+
         }
 
-        private static string CreateQR(IntPtr ptrFileInformation, dynamic payload)
-        {
-            QRCode qrCode = GenerateQR(payload);
-            return Convert.ToBase64String(ImageToByte2(qrCode.GetGraphic(20), new QRFileInfo(ptrFileInformation)));
-        }
+     
 
         private static QRCode GenerateQR(dynamic payload)
         {
@@ -66,7 +68,7 @@ namespace QRCoderClarionWrapper
         [DllExport("QRSkypeCall", CallingConvention = CallingConvention.StdCall)]
         public static void QRSkypeCall([MarshalAs(UnmanagedType.BStr)] string skypeUserName, IntPtr ptrFileInformation)
         {
-            CreateQRAndSave(ptrFileInformation, new SkypeCall(skypeUserName));
+            CreateQR(ptrFileInformation, new SkypeCall(skypeUserName));
         }
 
         [DllExport("QRSkypeCallAsString", CallingConvention = CallingConvention.StdCall)]
@@ -81,7 +83,7 @@ namespace QRCoderClarionWrapper
         [DllExport("QRSms", CallingConvention = CallingConvention.StdCall)]
         public static void QRSms([MarshalAs(UnmanagedType.BStr)] string number, [MarshalAs(UnmanagedType.BStr)] string message, IntPtr ptrFileInformation)
         {
-            CreateQRAndSave(ptrFileInformation, new SMS(number, message));
+            CreateQR(ptrFileInformation, new SMS(number, message));
         }
 
         [DllExport("QRSmsAsString", CallingConvention = CallingConvention.StdCall)]
@@ -98,14 +100,8 @@ namespace QRCoderClarionWrapper
         [DllExport("QRText", CallingConvention = CallingConvention.StdCall)]
         public static void QRText([MarshalAs(UnmanagedType.BStr)] string theText, IntPtr ptrFileInformation)
         {
-            CreateQRAndSave(ptrFileInformation, theText);
-            //QRFileInfo FileInformation = new QRFileInfo(ptrFileInformation);
-            //QRCodeGenerator qrGenerator = new QRCodeGenerator();
-
-            //QRCodeData qrCodeData = qrGenerator.CreateQrCode(theText, QRCodeGenerator.ECCLevel.Q);
-            //QRCode qrCode = new QRCode(qrCodeData);
-            //Bitmap qrCodeImage = qrCode.GetGraphic(20);
-            //qrCodeImage.Save(FileInformation.FileName, FileInformation.FileType);
+            CreateQR(ptrFileInformation, theText);
+           
         }
 
         [DllExport("QRTextAsString", CallingConvention = CallingConvention.StdCall)]
@@ -120,7 +116,7 @@ namespace QRCoderClarionWrapper
         [DllExport("QRUrl", CallingConvention = CallingConvention.StdCall)]
         public static void QRUrl([MarshalAs(UnmanagedType.BStr)] string website, IntPtr ptrFileInformation)
         {
-            CreateQRAndSave(ptrFileInformation, new Url(website));
+            CreateQR(ptrFileInformation, new Url(website));
         }
 
         [DllExport("QRUrlAsString", CallingConvention = CallingConvention.StdCall)]
@@ -137,7 +133,7 @@ namespace QRCoderClarionWrapper
         {
             //Retrieve and map clarion groups
             QRContact contact = new QRContact(ptrVcard);
-            CreateQRAndSave(ptrFileInformation, contact.GetContactData());
+            CreateQR(ptrFileInformation, contact.GetContactData());
         }
 
         [DllExport("QRVCardAsString", CallingConvention = CallingConvention.StdCall)]
