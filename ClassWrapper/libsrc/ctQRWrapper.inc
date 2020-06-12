@@ -83,7 +83,7 @@ CreateQRSkypeCall     PROCEDURE(STRING skypeContact, *gtFileInformation FileInfo
 CreateQRUrl           PROCEDURE(STRING url, *gtFileInformation FileInfo),VIRTUAL
 CreateQRSms           PROCEDURE(STRING number, STRING message, *gtFileInformation FileInfo),VIRTUAL
 
-DecodeImageToString      PROCEDURE(*BSTRING b64Image, LONG strLen)
+DecodeImageToString   PROCEDURE(*BSTRING b64Image, LONG strLen)
 GetCurrentImage       PROCEDURE(),STRING
 
                     END

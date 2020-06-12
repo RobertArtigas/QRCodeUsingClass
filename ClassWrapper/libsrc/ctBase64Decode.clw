@@ -26,14 +26,14 @@ ctBase64Decode.Destruct PROCEDURE()
   DISPOSE(Self.Qbase64)
   
 
-ctBase64Decode.AddValues   PROCEDURE(*qtBase64 qBase64, long i, long amount)  
+ctBase64Decode.AddValues    PROCEDURE(*qtBase64 qBase64, long i, long amount)  
   CODE
   qBase64.V = i
   LOOP a#=1 to amount
     Add(qBase64)
   END
   
-ctBase64Decode.AddValueRange   PROCEDURE(*qtBase64 qBase64, long from, long upto)  
+ctBase64Decode.AddValueRange    PROCEDURE(*qtBase64 qBase64, long from, long upto)  
   CODE
   
   LOOP a#=from to upto
@@ -73,8 +73,8 @@ tmp                           LONG
   END
   return n-1
   
-ctBase64Decode.GetDecodeValue  PROCEDURE(*qtBase64 qBase64, string c)
-u                             ULONG
+ctBase64Decode.GetDecodeValue   PROCEDURE(*qtBase64 qBase64, string c)
+u                                 ULONG
 
   CODE
   u = val(c) + 1

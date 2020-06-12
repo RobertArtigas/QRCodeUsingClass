@@ -2,16 +2,16 @@
                     MAP
                       MODULE('QRCoderClarionWrapper.lib')
 QRText                  PROCEDURE(BSTRING theText, LONG FileInfo) ,PASCAL,RAW,DLL(1),NAME('QRText')
-QRTextAsString            PROCEDURE(BSTRING theText, LONG FileInfo,*Long strLen),BSTRING,PASCAL,RAW,DLL(1),NAME('QRTextAsString')
+QRTextAsString          PROCEDURE(BSTRING theText, LONG FileInfo,*Long strLen),BSTRING,PASCAL,RAW,DLL(1),NAME('QRTextAsString')
 QRMail                  PROCEDURE(BSTRING emailAddress, BSTRING subject, BSTRING emailText) ,PASCAL,RAW,DLL(1),NAME('QRMail')
 QRVCard                 PROCEDURE(LONG card, LONG FileInfo),PASCAL,RAW,DLL(1),NAME('QRVCard')
-QRVCardAsString           PROCEDURE(LONG card, LONG FileInfo,*LONG strLen),BSTRING,PASCAL,RAW,DLL(1),NAME('QRVCardAsString')
+QRVCardAsString         PROCEDURE(LONG card, LONG FileInfo,*LONG strLen),BSTRING,PASCAL,RAW,DLL(1),NAME('QRVCardAsString')
 QRSkypeCall             PROCEDURE(BSTRING contact, LONG FileInfo) ,PASCAL,RAW,DLL(1),NAME('QRSkypeCall')
 QRSkypeCallAsString     PROCEDURE(BSTRING contact, LONG FileInfo,*LONG strLen),BSTRING ,PASCAL,RAW,DLL(1),NAME('QRSkypeCall')
 QRUrl                   PROCEDURE(BSTRING url, LONG FileInfo) ,PASCAL,RAW,DLL(1),NAME('QRUrl')
-QRUrlAsString                 PROCEDURE(BSTRING url, LONG FileInfo,*LONG strLen),BSTRING ,PASCAL,RAW,DLL(1),NAME('QRUrlAsString')
+QRUrlAsString           PROCEDURE(BSTRING url, LONG FileInfo,*LONG strLen),BSTRING ,PASCAL,RAW,DLL(1),NAME('QRUrlAsString')
 QRSms                   PROCEDURE(BSTRING number, BSTRING message, LONG FileInfo) ,PASCAL,RAW,DLL(1),NAME('QRsms')
-QRSmsAsString                   PROCEDURE(BSTRING number, BSTRING message, LONG FileInfo,*LONG strLen),BSTRING ,PASCAL,RAW,DLL(1),NAME('QRsmsAsString')
+QRSmsAsString           PROCEDURE(BSTRING number, BSTRING message, LONG FileInfo,*LONG strLen),BSTRING ,PASCAL,RAW,DLL(1),NAME('QRsmsAsString')
                       END
                     END
   
@@ -28,7 +28,7 @@ ctQRWrapper.Destruct    PROCEDURE()
   DISPOSE(Self.CurrentImage)
   
 !Used to decode a returned BSTRING reuslt that is Base64 to the CurrentImage property  
-ctQRWrapper.DecodeImageToString    PROCEDURE(*BSTRING b64Image, long strLen)  
+ctQRWrapper.DecodeImageToString PROCEDURE(*BSTRING b64Image, long strLen)  
 inStr                             &CSTRING
 outStr                            &CSTRING
 cBase64Decode                     &ctBase64Decode

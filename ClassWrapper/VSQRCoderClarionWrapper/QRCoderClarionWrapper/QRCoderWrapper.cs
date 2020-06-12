@@ -11,16 +11,17 @@ namespace QRCoderClarionWrapper
     public static partial class QRCoderWrapper
     {
 
-        private static void CreateQRAndSave(dynamic data, QRFileInfo FileInformation)
+        private static void CreateQRAndSave(IntPtr ptrFileInformation, dynamic payload)
         {
+            var FileInformation = new QRFileInfo(ptrFileInformation);
             if (FileInformation.FileName != string.Empty)
             {
                 if (File.Exists(FileInformation.FileName))
                     File.Delete(FileInformation.FileName);
 
-                string payload = data.ToString();
+                
                 QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload.ToString(), QRCodeGenerator.ECCLevel.Q);
                 QRCode qrCode = new QRCode(qrCodeData);
 
                 var qrCodeAsBitmap = qrCode.GetGraphic(20);
@@ -29,24 +30,22 @@ namespace QRCoderClarionWrapper
             }
         }
 
-        private static string GetImageAsString(IntPtr ptrFileInformation, string payload)
+        private static string GetImageAsString(IntPtr ptrFileInformation, dynamic payload)
         {
             string result;
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload.ToString(), QRCodeGenerator.ECCLevel.Q);
             QRCode qrCode = new QRCode(qrCodeData);
-            var qrCodeAsBitmap = qrCode.GetGraphic(20);
-            result = Convert.ToBase64String(ImageToByte2(qrCodeAsBitmap, new QRFileInfo(ptrFileInformation)));
+            var bitmap = qrCode.GetGraphic(20);
+            result = Convert.ToBase64String(ImageToByte2(bitmap, new QRFileInfo(ptrFileInformation)));
             return result;
         }
         private static byte[] ImageToByte2(Image img, QRFileInfo fileInformation)
         {
 
-            using (var stream = new MemoryStream())
-            {
-                img.Save(stream, fileInformation.FileType);
-                return stream.ToArray();
-            }
+            using var stream = new MemoryStream();
+            img.Save(stream, fileInformation.FileType);
+            return stream.ToArray();
         }
 
 
@@ -68,35 +67,29 @@ namespace QRCoderClarionWrapper
         [DllExport("QRSkypeCall", CallingConvention = CallingConvention.StdCall)]
         public static void QRSkypeCall([MarshalAs(UnmanagedType.BStr)] string skypeUserName, IntPtr ptrFileInformation)
         {
-            QRFileInfo FileInformation = new QRFileInfo(ptrFileInformation);
-            CreateQRAndSave(new SkypeCall(skypeUserName), FileInformation);
+            CreateQRAndSave(ptrFileInformation, new SkypeCall(skypeUserName));
         }
+
         [DllExport("QRSkypeCallAsString", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.BStr)]
         public static string QRSkypeCallAsString([MarshalAs(UnmanagedType.BStr)] string skypeUserName, IntPtr ptrFileInformation, out int len)
         {
-
-
-            var result = GetImageAsString(ptrFileInformation, new SkypeCall(skypeUserName).ToString());
+            var result = GetImageAsString(ptrFileInformation, new SkypeCall(skypeUserName));
             len = result.Length;
             return result;
-
         }
 
         [DllExport("QRSms", CallingConvention = CallingConvention.StdCall)]
         public static void QRSms([MarshalAs(UnmanagedType.BStr)] string number, [MarshalAs(UnmanagedType.BStr)] string message, IntPtr ptrFileInformation)
         {
-            QRFileInfo FileInformation = new QRFileInfo(ptrFileInformation);
-            CreateQRAndSave(new SMS(number, message), FileInformation);
+            CreateQRAndSave(ptrFileInformation, new SMS(number, message));
         }
 
         [DllExport("QRSmsAsString", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.BStr)]
         public static string QRSmsAsString([MarshalAs(UnmanagedType.BStr)] string number, [MarshalAs(UnmanagedType.BStr)] string message, IntPtr ptrFileInformation, out int len)
         {
-            QRFileInfo FileInformation = new QRFileInfo(ptrFileInformation);
-
-            var result = GetImageAsString(ptrFileInformation, new SMS(number, message).ToString());
+            var result = GetImageAsString(ptrFileInformation, new SMS(number, message));
             len = result.Length;
             return result;
 
@@ -106,13 +99,14 @@ namespace QRCoderClarionWrapper
         [DllExport("QRText", CallingConvention = CallingConvention.StdCall)]
         public static void QRText([MarshalAs(UnmanagedType.BStr)] string theText, IntPtr ptrFileInformation)
         {
-            QRFileInfo FileInformation = new QRFileInfo(ptrFileInformation);
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            CreateQRAndSave(ptrFileInformation, theText);
+            //QRFileInfo FileInformation = new QRFileInfo(ptrFileInformation);
+            //QRCodeGenerator qrGenerator = new QRCodeGenerator();
 
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(theText, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeImage = qrCode.GetGraphic(20);
-            qrCodeImage.Save(FileInformation.FileName, FileInformation.FileType);
+            //QRCodeData qrCodeData = qrGenerator.CreateQrCode(theText, QRCodeGenerator.ECCLevel.Q);
+            //QRCode qrCode = new QRCode(qrCodeData);
+            //Bitmap qrCodeImage = qrCode.GetGraphic(20);
+            //qrCodeImage.Save(FileInformation.FileName, FileInformation.FileType);
         }
 
         [DllExport("QRTextAsString", CallingConvention = CallingConvention.StdCall)]
@@ -120,7 +114,6 @@ namespace QRCoderClarionWrapper
         public static string QRTextAsString([MarshalAs(UnmanagedType.BStr)] string theText, IntPtr ptrFileInformation, out int len)
         {
             string result = GetImageAsString(ptrFileInformation, theText);
-
             len = result.Length;
             return result;
         }
@@ -128,10 +121,7 @@ namespace QRCoderClarionWrapper
         [DllExport("QRUrl", CallingConvention = CallingConvention.StdCall)]
         public static void QRUrl([MarshalAs(UnmanagedType.BStr)] string website, IntPtr ptrFileInformation)
         {
-            QRFileInfo FileInformation = new QRFileInfo(ptrFileInformation);
-            CreateQRAndSave(new Url(website), FileInformation);
-
-
+            CreateQRAndSave(ptrFileInformation, new Url(website));
         }
 
         [DllExport("QRUrlAsString", CallingConvention = CallingConvention.StdCall)]
@@ -139,7 +129,7 @@ namespace QRCoderClarionWrapper
         public static string QRUrlAsString([MarshalAs(UnmanagedType.BStr)] string website, IntPtr ptrFileInformation, out int len)
         {
             QRFileInfo FileInformation = new QRFileInfo(ptrFileInformation);
-            var result = GetImageAsString(ptrFileInformation, new Url(website).ToString());
+            var result = GetImageAsString(ptrFileInformation, new Url(website));
             len = result.Length;
             return result;
 
@@ -151,10 +141,9 @@ namespace QRCoderClarionWrapper
         public static void QRVCard(IntPtr ptrVcard, IntPtr ptrFileInformation)
         {
             //Retrieve and map clarion groups
-            QRFileInfo FileInformation = new QRFileInfo(ptrFileInformation);
             QRContact contact = new QRContact(ptrVcard);
 
-            CreateQRAndSave(contact.GetContactData(), FileInformation);
+            CreateQRAndSave(ptrFileInformation, contact.GetContactData());
 
 
         }
@@ -163,13 +152,8 @@ namespace QRCoderClarionWrapper
         [return: MarshalAs(UnmanagedType.BStr)]
         public static String QRVCardAsString(IntPtr ptrVcard, IntPtr ptrFileInformation, out int len)
         {
-            string result;
-            //Retrieve and map clarion groups
-            QRFileInfo FileInformation = new QRFileInfo(ptrFileInformation);
-            QRContact contact = new QRContact(ptrVcard);
-            string payload = contact.GetContactData().ToString();
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            result = GetImageAsString(ptrFileInformation, payload);
+            //Generator is used to return The contact data
+            string result = GetImageAsString(ptrFileInformation, new QRContact(ptrVcard).GetContactData());
             len = result.Length;
             return result;
 
