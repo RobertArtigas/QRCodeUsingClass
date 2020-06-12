@@ -1,17 +1,12 @@
                     MEMBER
                     MAP
                       MODULE('QRCoderClarionWrapper.lib')
-QRText                  PROCEDURE(BSTRING theText, LONG FileInfo) ,PASCAL,RAW,DLL(1),NAME('QRText')
-QRTextAsString          PROCEDURE(BSTRING theText, LONG FileInfo,*Long strLen),BSTRING,PASCAL,RAW,DLL(1),NAME('QRTextAsString')
+QRText                  PROCEDURE(BSTRING theText, LONG FileInfo,*Long strLen),BSTRING,PASCAL,RAW,DLL(1),NAME('QRText'),PROC
 QRMail                  PROCEDURE(BSTRING emailAddress, BSTRING subject, BSTRING emailText) ,PASCAL,RAW,DLL(1),NAME('QRMail')
-QRVCard                 PROCEDURE(LONG card, LONG FileInfo),PASCAL,RAW,DLL(1),NAME('QRVCard')
-QRVCardAsString         PROCEDURE(LONG card, LONG FileInfo,*LONG strLen),BSTRING,PASCAL,RAW,DLL(1),NAME('QRVCardAsString')
-QRSkypeCall             PROCEDURE(BSTRING contact, LONG FileInfo) ,PASCAL,RAW,DLL(1),NAME('QRSkypeCall')
-QRSkypeCallAsString     PROCEDURE(BSTRING contact, LONG FileInfo,*LONG strLen),BSTRING ,PASCAL,RAW,DLL(1),NAME('QRSkypeCall')
-QRUrl                   PROCEDURE(BSTRING url, LONG FileInfo) ,PASCAL,RAW,DLL(1),NAME('QRUrl')
-QRUrlAsString           PROCEDURE(BSTRING url, LONG FileInfo,*LONG strLen),BSTRING ,PASCAL,RAW,DLL(1),NAME('QRUrlAsString')
-QRSms                   PROCEDURE(BSTRING number, BSTRING message, LONG FileInfo) ,PASCAL,RAW,DLL(1),NAME('QRsms')
-QRSmsAsString           PROCEDURE(BSTRING number, BSTRING message, LONG FileInfo,*LONG strLen),BSTRING ,PASCAL,RAW,DLL(1),NAME('QRsmsAsString')
+QRVCard                 PROCEDURE(LONG card, LONG FileInfo,*LONG strLen),BSTRING,PASCAL,RAW,DLL(1),NAME('QRVCard'),PROC
+QRSkypeCall             PROCEDURE(BSTRING contact, LONG FileInfo,*LONG strLen),BSTRING ,PASCAL,RAW,DLL(1),NAME('QRSkypeCall'),PROC
+QRUrl                   PROCEDURE(BSTRING url, LONG FileInfo,*LONG strLen),BSTRING ,PASCAL,RAW,DLL(1),NAME('QRUrl'),PROC
+QRSms                   PROCEDURE(BSTRING number, BSTRING message, LONG FileInfo,*LONG strLen),BSTRING ,PASCAL,RAW,DLL(1),NAME('QRsms'),PROC
                       END
                     END
   
@@ -56,10 +51,8 @@ img                           BSTRING
 strLen                        LONG
 
   CODE
-  IF FileInfo.SaveImage
-    QRVCard(Address(contact), ADDRESS(FileInfo))
-  ELSE
-    IMG = QRVCardAsString(Address(contact), ADDRESS(FileInfo), strLen)
+  IMG = QRVCard(Address(contact), ADDRESS(FileInfo), strLen)
+  IF ~FileInfo.SaveImage
     SELF.DecodeImageToString(img, strLen)
   END
   
@@ -69,10 +62,8 @@ img                           BSTRING
 strLen                        LONG
 
   CODE
-  IF FileInfo.SaveImage THEN
-    QRText(CLIP(txt), Address(FileInfo))
-  ELSE
-    IMG = QRTextAsString(CLIP(txt), ADDRESS(FileInfo), strLen)
+  IMG = QRText(CLIP(txt), ADDRESS(FileInfo), strLen)
+  IF ~FileInfo.SaveImage THEN
     Self.DecodeImageToString(img, strLen)
   END
   
@@ -84,11 +75,8 @@ ctQRWrapper.CreateQRSkypeCall   PROCEDURE(STRING skypeContact, *gtFileInformatio
 IMG                               BSTRING
 strLen                            LONG
   CODE
-  IF FileInfo.SaveImage THEN
-    QRSkypeCall(clip(skypeContact), Address(FileInfo))  
-  ELSE
-    
-    IMG = QRSkypeCallAsString(clip(skypeContact), Address(FileInfo), strLen)
+  IMG = QRSkypeCall(clip(skypeContact), Address(FileInfo), strLen)
+  IF ~FileInfo.SaveImage THEN
     Self.DecodeImageToString(img, strLen)
   END
   
@@ -97,10 +85,8 @@ ctQRWrapper.CreateQRUrl PROCEDURE(STRING url, *gtFileInformation FileInfo)
 IMG                       BSTRING
 strLen                    LONG
   CODE
-  IF FileInfo.SaveImage THEN
-    QRUrl(CLIP(url), Address(FileInfo)) 
-  ELSE
-    IMG = QRUrlAsString(CLIP(url), Address(FileInfo), strlen) 
+  IMG = QRUrl(CLIP(url), Address(FileInfo), strlen) 
+  IF ~FileInfo.SaveImage THEN
     Self.DecodeImageToString(img, strLen)
   END
 
@@ -108,13 +94,9 @@ ctQRWrapper.CreateQRSms PROCEDURE(STRING number, STRING message, *gtFileInformat
 IMG                       BSTRING
 strLen                    LONG
   CODE
-  
-  IF FileInfo.SaveImage THEN
-    QRSms(CLIP(number), CLIP(message), Address(FileInfo))    
-  ELSE
-    IMG = QRSmsAsString(CLIP(number), CLIP(message), Address(FileInfo),strlen)    
+  IMG = QRSms(CLIP(number), CLIP(message), Address(FileInfo),strlen)    
+  IF ~FileInfo.SaveImage THEN
     Self.DecodeImageToString(img, strLen)
-
   END
   
 ctQRWrapper.GetCurrentImage PROCEDURE()
