@@ -32,33 +32,22 @@ namespace QRCoderClarionWrapper
             
             get
             {
-                switch (group.FileType)
+                return group.FileType switch
                 {
-                    case 0:
-                        return ImageFormat.Bmp;
-                    case 1:
-                        return ImageFormat.Emf;
-                    case 2:
-                        return ImageFormat.Wmf;
-                    case 3:
-                        return ImageFormat.Gif;
-                    case 4:
-                        return ImageFormat.Jpeg;
-                    case 5:
-                        return ImageFormat.Png;
-                    case 6:
-                        return ImageFormat.Tiff;
-                    case 7:
-                        return ImageFormat.Exif;
-                    case 8:
-                        return ImageFormat.Icon;
-                    default:
-                        return ImageFormat.Jpeg;
-                }
-                
+                    0 => ImageFormat.Bmp,
+                    1 => ImageFormat.Emf,
+                    2 => ImageFormat.Wmf,
+                    3 => ImageFormat.Gif,
+                    4 => ImageFormat.Jpeg,
+                    5 => ImageFormat.Png,
+                    6 => ImageFormat.Tiff,
+                    7 => ImageFormat.Exif,
+                    8 => ImageFormat.Icon,
+                    _ => ImageFormat.Jpeg,
+                };
             }
         }
-        public bool SaveOrReturn
+        public bool ReturnString
         {
             get
             {

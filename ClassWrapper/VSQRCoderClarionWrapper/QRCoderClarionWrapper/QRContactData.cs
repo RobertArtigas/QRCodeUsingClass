@@ -54,20 +54,14 @@ namespace QRCoderClarionWrapper
         {
             get
             {
-                switch (group.OutputType)
+                return group.OutputType switch
                 {
-                    case 0:
-                        return ContactOutputType.MeCard;
-                    case 1:
-                        return ContactOutputType.VCard21;
-                    case 2:
-                        return ContactOutputType.VCard3;
-                    case 3:
-                        return ContactOutputType.VCard4;
-                   default:
-                        return ContactOutputType.VCard3;
-
-                }
+                    0 => ContactOutputType.MeCard,
+                    1 => ContactOutputType.VCard21,
+                    2 => ContactOutputType.VCard3,
+                    3 => ContactOutputType.VCard4,
+                    _ => ContactOutputType.VCard3,
+                };
             }
         }
         public string FirstName
@@ -148,13 +142,11 @@ namespace QRCoderClarionWrapper
         {
             get
             {
-                switch (group.AddressOrder)
+                return group.AddressOrder switch
                 {
-                    case 1:
-                        return AddressOrder.Reversed;
-                    default:
-                        return AddressOrder.Default;
-                }
+                    1 => AddressOrder.Reversed,
+                    _ => AddressOrder.Default,
+                };
             }
         }
 
