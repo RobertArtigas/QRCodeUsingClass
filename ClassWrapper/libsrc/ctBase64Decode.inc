@@ -8,7 +8,6 @@ AddValues             PROCEDURE(*qtBase64 qBase64, long i, long amount),PRIVATE
 AddValueRange         PROCEDURE(*qtBase64 qBase64, long from, long upto),PRIVATE
 DecodeBase64          PROCEDURE(*CSTRING out, *CString in, long len),LONG
 GetDecodeValue        PROCEDURE(*qtBase64 qBase64, string c),long,PRIVATE
-
 CONSTRUCT             PROCEDURE()
 DESTRUCT              PROCEDURE()
                     END

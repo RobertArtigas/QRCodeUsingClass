@@ -65,7 +65,7 @@ Encoding              LONG(EventEncoding:Universal)
 gtFileInformation   GROUP,TYPE
 FileName              BSTRING
 imageType             LONG(ImageFormat:Jpeg)
-!SaveOrReturn          LONG(0)  ! 0 for save 1 to return base64
+SaveOrReturn          LONG(0)  ! 0 for save 1 to return base64
                     END
 
   include('ctBase64Decode.inc'),Once
@@ -78,7 +78,7 @@ Destruct              PROCEDURE()
 CreateQRCalendar      PROCEDURE(*gtQRContact calendar, *gtFileInformation FileInfo),VIRTUAL
 CreateQRContact       PROCEDURE(*gtQRContact contact, *gtFileInformation FileInfo),VIRTUAL
 CreateQRText          PROCEDURE(STRING txt, *gtFileInformation FileInfo),VIRTUAL
-CreateQRTextToString  PROCEDURE(STRING txt, *gtFileInformation FileInfo),VIRTUAL
+!CreateQRTextAsString  PROCEDURE(STRING txt, *gtFileInformation FileInfo),VIRTUAL
 CreateQRSkypeCall     PROCEDURE(STRING skypeContact, *gtFileInformation FileInfo),VIRTUAL
 CreateQRUrl           PROCEDURE(STRING url, *gtFileInformation FileInfo),VIRTUAL
 CreateQRSms           PROCEDURE(STRING number, STRING message, *gtFileInformation FileInfo),VIRTUAL
