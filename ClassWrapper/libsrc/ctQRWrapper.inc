@@ -64,26 +64,26 @@ Encoding              LONG(EventEncoding:Universal)
 
 gtFileInformation   GROUP,TYPE
 FileName              BSTRING
-imageType             LONG(ImageFormat:Jpeg)
-SaveImage             LONG(0)  ! 0 for save 1 to return base64
+imageType             LONG(ImageFormat:Jpeg) !Default to Jpeg
+SaveImage             LONG(0)                !Default to not
                     END
 
   include('ctBase64Decode.inc'),Once
 
 ctQRWrapper         CLASS,TYPE,MODULE('ctQRWrapper.clw'),LINK('ctQRWrapper.clw')
 CurrentImage          &STRING,PRIVATE
+cBase64Decode                     &ctBase64Decode,PRIVATE
 Construct             PROCEDURE()
 Destruct              PROCEDURE()
 
 CreateQRCalendar      PROCEDURE(*gtQRContact calendar, *gtFileInformation FileInfo),VIRTUAL
 CreateQRContact       PROCEDURE(*gtQRContact contact, *gtFileInformation FileInfo),VIRTUAL
 CreateQRText          PROCEDURE(STRING txt, *gtFileInformation FileInfo),VIRTUAL
-!CreateQRTextAsString  PROCEDURE(STRING txt, *gtFileInformation FileInfo),VIRTUAL
 CreateQRSkypeCall     PROCEDURE(STRING skypeContact, *gtFileInformation FileInfo),VIRTUAL
 CreateQRUrl           PROCEDURE(STRING url, *gtFileInformation FileInfo),VIRTUAL
 CreateQRSms           PROCEDURE(STRING number, STRING message, *gtFileInformation FileInfo),VIRTUAL
-
-DecodeImageToString   PROCEDURE(*BSTRING b64Image, LONG strLen)
+SetCurrentImage  PROCEDURE(bstring img, long strLen),PRIVATE
+!DecodeImageToString   PROCEDURE(*BSTRING b64Image, LONG strLen),PRIVATE
 GetCurrentImage       PROCEDURE(),STRING
 
                     END

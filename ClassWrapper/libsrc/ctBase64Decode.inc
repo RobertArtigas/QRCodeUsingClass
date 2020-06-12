@@ -6,8 +6,11 @@ ctBase64Decode      CLASS,TYPE,MODULE('ctBase64Decode.clw'),LINK('ctBase64Decode
 qBase64               &qtBase64,PRIVATE
 AddValues             PROCEDURE(*qtBase64 qBase64, long i, long amount),PRIVATE
 AddValueRange         PROCEDURE(*qtBase64 qBase64, long from, long upto),PRIVATE
-DecodeBase64          PROCEDURE(*CSTRING out, *CString in, long len),LONG
+DecodeBase64          PROCEDURE(*CSTRING out, *CString in, long len),LONG,PRIVATE
+DecodeImageToString   PROCEDURE(*BSTRING b64Image, long strLen),LONG  
 GetDecodeValue        PROCEDURE(*qtBase64 qBase64, string c),long,PRIVATE
+ReturnImage           &STRING
+
 CONSTRUCT             PROCEDURE()
 DESTRUCT              PROCEDURE()
                     END

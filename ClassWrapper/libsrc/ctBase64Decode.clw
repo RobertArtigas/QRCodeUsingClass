@@ -24,6 +24,7 @@ ctBase64Decode.Destruct PROCEDURE()
   CODE
   FREE(Self.qBase64)
   DISPOSE(Self.Qbase64)
+  DISPOSE(Self.ReturnImage)
   
 
 ctBase64Decode.AddValues    PROCEDURE(*qtBase64 qBase64, long i, long amount)  
@@ -81,6 +82,27 @@ u                                 ULONG
   Get(qBase64,U)
   RETURN qBase64.V  
   
+  
+ctBase64Decode.DecodeImageToString PROCEDURE(*BSTRING b64Image, long strLen)  
+inStr                             &CSTRING
+outStr                                &CSTRING
+imgLen                                LONG
+  CODE
+ 
+  
+  inStr &= new(CSTRING(strLen+1))
+  outStr &= new(CSTRING(strLen+1))
+  
+  
+  inStr = b64Image
+  
+  imgLen =Self.DecodeBase64(outStr, inStr, strlen)
+  DISPOSE(Self.ReturnImage)  !In case already has image
+  Self.ReturnImage &= new(String(imgLen))
+  Self.ReturnImage = outStr[1:strLen]
+  DISPOSE(inStr)
+  DISPOSE(outStr)  
+  Return imgLen
 
   
   
