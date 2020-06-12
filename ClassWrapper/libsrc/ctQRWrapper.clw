@@ -56,12 +56,11 @@ img                           BSTRING
 strLen                        LONG
 
   CODE
-  IF FileInfo.SaveOrReturn
-    IMG = QRVCardAsString(Address(contact), ADDRESS(FileInfo), strLen)
-    
-    SELF.DecodeImageToString(img, strLen)
-  ELSE
+  IF FileInfo.SaveImage
     QRVCard(Address(contact), ADDRESS(FileInfo))
+  ELSE
+    IMG = QRVCardAsString(Address(contact), ADDRESS(FileInfo), strLen)
+    SELF.DecodeImageToString(img, strLen)
   END
   
 
@@ -70,11 +69,11 @@ img                           BSTRING
 strLen                        LONG
 
   CODE
-  IF FileInfo.SaveOrReturn THEN
+  IF FileInfo.SaveImage THEN
+    QRText(CLIP(txt), Address(FileInfo))
+  ELSE
     IMG = QRTextAsString(CLIP(txt), ADDRESS(FileInfo), strLen)
     Self.DecodeImageToString(img, strLen)
-  ELSE
-    QRText(CLIP(txt), Address(FileInfo))
   END
   
   
@@ -85,11 +84,12 @@ ctQRWrapper.CreateQRSkypeCall   PROCEDURE(STRING skypeContact, *gtFileInformatio
 IMG                               BSTRING
 strLen                            LONG
   CODE
-  IF FileInfo.SaveOrReturn THEN
+  IF FileInfo.SaveImage THEN
+    QRSkypeCall(clip(skypeContact), Address(FileInfo))  
+  ELSE
+    
     IMG = QRSkypeCallAsString(clip(skypeContact), Address(FileInfo), strLen)
     Self.DecodeImageToString(img, strLen)
-  ELSE
-    QRSkypeCall(clip(skypeContact), Address(FileInfo))  
   END
   
 
@@ -97,11 +97,11 @@ ctQRWrapper.CreateQRUrl PROCEDURE(STRING url, *gtFileInformation FileInfo)
 IMG                       BSTRING
 strLen                    LONG
   CODE
-  IF FileInfo.SaveOrReturn THEN
+  IF FileInfo.SaveImage THEN
+    QRUrl(CLIP(url), Address(FileInfo)) 
+  ELSE
     IMG = QRUrlAsString(CLIP(url), Address(FileInfo), strlen) 
     Self.DecodeImageToString(img, strLen)
-  ELSE
-    QRUrl(CLIP(url), Address(FileInfo)) 
   END
 
 ctQRWrapper.CreateQRSms PROCEDURE(STRING number, STRING message, *gtFileInformation FileInfo)
@@ -109,11 +109,12 @@ IMG                       BSTRING
 strLen                    LONG
   CODE
   
-  IF FileInfo.SaveOrReturn THEN
+  IF FileInfo.SaveImage THEN
+    QRSms(CLIP(number), CLIP(message), Address(FileInfo))    
+  ELSE
     IMG = QRSmsAsString(CLIP(number), CLIP(message), Address(FileInfo),strlen)    
     Self.DecodeImageToString(img, strLen)
-  ELSE
-    QRSms(CLIP(number), CLIP(message), Address(FileInfo))    
+
   END
   
 ctQRWrapper.GetCurrentImage PROCEDURE()

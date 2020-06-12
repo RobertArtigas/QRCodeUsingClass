@@ -65,7 +65,7 @@ Encoding              LONG(EventEncoding:Universal)
 gtFileInformation   GROUP,TYPE
 FileName              BSTRING
 imageType             LONG(ImageFormat:Jpeg)
-SaveOrReturn          LONG(0)  ! 0 for save 1 to return base64
+SaveImage             LONG(0)  ! 0 for save 1 to return base64
                     END
 
   include('ctBase64Decode.inc'),Once

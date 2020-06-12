@@ -16,7 +16,7 @@ namespace QRCoderClarionWrapper
             var FileInformation = new QRFileInfo(ptrFileInformation);
             
             QRCode qrCode = GenerateQR(payload);
-            if (!FileInformation.ReturnString && FileInformation.FileName != "")
+            if (FileInformation.SaveImage && FileInformation.FileName != "")
             {
                 if (File.Exists(FileInformation.FileName))
                     File.Delete(FileInformation.FileName);

@@ -47,7 +47,7 @@ namespace QRCoderClarionWrapper
                 };
             }
         }
-        public bool ReturnString
+        public bool SaveImage
         {
             get
             {
