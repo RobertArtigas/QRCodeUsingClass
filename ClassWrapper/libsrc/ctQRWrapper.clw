@@ -26,15 +26,17 @@ ctQRWrapper.Destruct    PROCEDURE()
   
   !Used to decode a base64 image returned from .net into the
   !string property current image
-ctQRWrapper.SetCurrentImage PROCEDURE(bstring img, long strLen)
+ctQRWrapper.SetCurrentImage PROCEDURE(bstring img, long strLen, long SaveImage)
 imgLen                        LONG
   CODE
   
-  DISPOSE(Self.CurrentImage)
-  imgLen = SELF.cBase64Decode.DecodeImageToString(img, strLen)
-  Self.CurrentImage &= new(string(imgLen))
-  Self.CurrentImage = Self.cBase64Decode.ReturnImage
-    
+  If ~SaveImage
+    DISPOSE(Self.CurrentImage)
+    imgLen = SELF.cBase64Decode.DecodeImageToString(img, strLen)
+    Self.CurrentImage &= new(string(imgLen))
+    Self.CurrentImage = Self.cBase64Decode.ReturnImage
+  END
+  
 ctQRWrapper.CreateQRCalendar    PROCEDURE(*gtQRContact calendar, *gtFileInformation FileInfo)
   CODE
   !QRCalendar(ADDRESS(calendar), ADDRESS(FileInfo))
@@ -45,9 +47,7 @@ strLen                        LONG
 
   CODE
   IMG = QRVCard(Address(contact), ADDRESS(FileInfo), strLen)
-  IF ~FileInfo.SaveImage
-    Self.SetCurrentImage(img, strLen)
-  END
+  Self.SetCurrentImage(img, strLen, FileInfo.SaveImage)
   
 
 
@@ -57,18 +57,14 @@ strLen                        LONG
 
   CODE
   IMG = QRText(CLIP(txt), ADDRESS(FileInfo), strLen)
-  IF ~FileInfo.SaveImage
-    Self.SetCurrentImage(img, strLen)
-  END
+  Self.SetCurrentImage(img, strLen, FileInfo.SaveImage)
   
 ctQRWrapper.CreateQRSkypeCall   PROCEDURE(STRING skypeContact, *gtFileInformation FileInfo)
 IMG                               BSTRING
 strLen                            LONG
   CODE
   IMG = QRSkypeCall(clip(skypeContact), Address(FileInfo), strLen)
-  IF ~FileInfo.SaveImage
-    Self.SetCurrentImage(img, strLen)
-  END
+  Self.SetCurrentImage(img, strLen, FileInfo.SaveImage)
   
 
 ctQRWrapper.CreateQRUrl PROCEDURE(STRING url, *gtFileInformation FileInfo)
@@ -76,18 +72,14 @@ IMG                       BSTRING
 strLen                    LONG
   CODE
   IMG = QRUrl(CLIP(url), Address(FileInfo), strlen) 
-  IF ~FileInfo.SaveImage
-    Self.SetCurrentImage(img, strLen)
-  END
+  Self.SetCurrentImage(img, strLen, FileInfo.SaveImage)
 
 ctQRWrapper.CreateQRSms PROCEDURE(STRING number, STRING message, *gtFileInformation FileInfo)
 IMG                       BSTRING
 strLen                    LONG
   CODE
   IMG = QRSms(CLIP(number), CLIP(message), Address(FileInfo),strlen)    
-  IF ~FileInfo.SaveImage
-    Self.SetCurrentImage(img, strLen)
-  END
+  Self.SetCurrentImage(img, strLen, FileInfo.SaveImage )
   
 ctQRWrapper.GetCurrentImage PROCEDURE()
   CODE

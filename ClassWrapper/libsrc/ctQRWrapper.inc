@@ -82,8 +82,7 @@ CreateQRText          PROCEDURE(STRING txt, *gtFileInformation FileInfo),VIRTUAL
 CreateQRSkypeCall     PROCEDURE(STRING skypeContact, *gtFileInformation FileInfo),VIRTUAL
 CreateQRUrl           PROCEDURE(STRING url, *gtFileInformation FileInfo),VIRTUAL
 CreateQRSms           PROCEDURE(STRING number, STRING message, *gtFileInformation FileInfo),VIRTUAL
-SetCurrentImage  PROCEDURE(bstring img, long strLen),PRIVATE
-!DecodeImageToString   PROCEDURE(*BSTRING b64Image, LONG strLen),PRIVATE
+SetCurrentImage       PROCEDURE(bstring img, long strLen, long SaveImage),PRIVATE
 GetCurrentImage       PROCEDURE(),STRING
 
                     END
