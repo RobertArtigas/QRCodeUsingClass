@@ -42,3 +42,6 @@ Raffael Herrmann developer of the .Net QRCoder project [QRCoder which can be fou
 
 Original Class Wrapper code given by Roberto Renz
 
+Extensive work done on the repository by Mark Sarson
+
+## Example Programs
