@@ -17,7 +17,7 @@ obj/**
 *.bpp
 *.ap~
 PWEE*.txt
-
+_archive_
 
 !Examples/*
 !Bin/
