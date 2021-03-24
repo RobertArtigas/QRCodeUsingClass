@@ -45,3 +45,12 @@ Original Class Wrapper code given by Roberto Renz
 Extensive work done on the repository by Mark Sarson
 
 ## Example Programs
+
+
+
+[Code](https://github.com/RobertArtigas/QRCodeUsingClass) 
+<!-- [Wiki](https://github.com/RobertArtigas/DCT2SQL/wiki) --> 
+[Main](https://github.com/RobertArtigas) 
+[Repositories](https://github.com/RobertArtigas?tab=repositories)
+
+
