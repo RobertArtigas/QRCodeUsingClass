@@ -11,7 +11,7 @@ We hope that other clarion developers will contribute to the project and we will
 ## Requirements
 
 This project is wrapping the QRCoder .Net Wrapper in a .Net dll.
-# As such it requires .Net 4.6 to be installedon any computer using the wrapper.
+# As such it requires .Net 4.6 to be installed on any computer using the wrapper.
 
 
 ## Current working code within class wrapper.
