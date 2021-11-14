@@ -46,6 +46,13 @@ Extensive work done on the repository by Mark Sarson
 
 ## Example Programs
 
+##
+###
+
+The human race divides politically into those who want people to be controlled and those who have no such desire.<BR/>
+_Robert A. Heinlein_
+
+##
 
 <!-- [Wiki](https://github.com/RobertArtigas/DCT2SQL/wiki) --> 
 [Code](https://github.com/RobertArtigas/QRCodeUsingClass) 
