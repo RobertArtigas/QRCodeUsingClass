@@ -5,14 +5,14 @@
 
 # Explicitly declare text files you want to always be normalized and converted
 # to native line endings on checkout.
-*.clw text
-*.inc text
-*.int text
-*.cwproj text
-*.sln text
+*.clw text eol=crlf
+*.inc text eol=crlf
+*.int text eol=crlf
+*.cwproj text eol=crlf
+*.sln text eol=crlf
 # Version control files 
-*.apv text
-*.dcv text
+*.apv text eol=crlf
+*.dcv text eol=crlf
 
 # Declare files that will always have CRLF line endings on checkout.
 *.sln text eol=crlf
