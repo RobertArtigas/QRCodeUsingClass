@@ -48,16 +48,21 @@ Extensive work done on the repository by Mark Sarson
 
 
 ##
-###
-
-The human race divides politically into those who want people to be controlled and those who have no such desire.<BR/>
-_Robert A. Heinlein_
-
-##
 
 <!-- [Wiki](https://github.com/RobertArtigas/DCT2SQL/wiki) --> 
 [Code](https://github.com/RobertArtigas/QRCodeUsingClass) 
 [Main](https://github.com/RobertArtigas) 
 [Repositories](https://github.com/RobertArtigas?tab=repositories)
 
+##
+###
 
+The human race divides politically into those who want people to be controlled and those who have no such desire.<BR/>
+_Robert A. Heinlein_
+
+##
+### MATTER IS CONSCIOUSNESS
+
+If you've had the nonduality epiphany, then you're already further than most spiritual seekers ever get, but this isn’t the time to hang your sword home above the fireplace, this is the time to sharpen it and start swinging it to see what it can really do. It's time to start taking heads; ultimately, your own. Figure out what’s holding you back, where exactly you’re stuck. Identify the current obstacle blocking your progress and use your weapon to destroy it, which means, use your mind to illuminate it. That’s the process of reason. That’s how you take a step on the path. Or, you know, you can just keep meditating and hope for the best. <BR/>
+_Jed McKenna_
+##
